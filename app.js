@@ -21,13 +21,13 @@ function setPage(page) {
   $$('.page').forEach(el=>el.classList.add('hidden'));
   $(`#${page}Page`).classList.remove('hidden');
   $$('[data-page]').forEach(el=>el.classList.toggle('selected',el.dataset.page===page));
-  const titles={home:'Tải xuống thật dễ ✨',jobs:'Tác vụ của tao',files:'Tệp đã lưu',settings:'Cài đặt'};
+  const titles={home:'Tải xuống thật dễ',jobs:'Tác vụ của bạn',files:'Tệp đã lưu',settings:'Cài đặt'};
   $('#page-title').textContent=titles[page];
   window.scrollTo({top:0,behavior:'instant'});
 }
 function setLogged(logged) {
   $('#loginCard').classList.toggle('hidden',logged);
-  $('#authLabel').textContent=logged?'Đã đăng nhập ✓':'Chưa đăng nhập';
+  $('#authLabel').textContent=logged?'Đã đăng nhập':'Chưa đăng nhập';
   if (!logged) {
     $$('.page').forEach(el=>el.classList.add('hidden'));
     $$('.bottom-item').forEach(el=>el.disabled=true);
@@ -100,6 +100,20 @@ async function refreshJobs(silent=false){
   try {const result=await call('/api/jobs');settings.jobs=result.jobs||[];renderJobs();}
   catch(e){if(!silent)notify(e.message,'error');}
 }
+async function keyLogin() {
+  const key=$('#keyInput').value.trim();
+  const btn=$('#keyBtn');
+  if(!key){notify('Hãy dán mã truy cập GitHub của bạn vào ô bên trên.','error');return;}
+  btn.disabled=true;
+  try{
+    const result=await call('/auth/token',{method:'POST',body:JSON.stringify({token:key})});
+    settings.token=result.token;sessionStorage.setItem('m3_session',result.token);
+    $('#keyInput').value='';
+    setLogged(true);notify('Đăng nhập thành công!','success');
+    await refreshJobs(true);
+  }catch(e){notify(e.message,'error');}
+  finally{btn.disabled=false;}
+}
 async function boot() {
   themeApply(localStorage.getItem('m3_theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
   $('#themeBtn').addEventListener('click',toggleTheme);$('#themeSetting').addEventListener('click',toggleTheme);
@@ -107,7 +121,9 @@ async function boot() {
   $$('[data-go]').forEach(el=>el.addEventListener('click',()=>setPage(el.dataset.go)));
   $('#refreshBtn').addEventListener('click',()=>refreshJobs());
   $('#syncBtn').addEventListener('click',async()=>{try{await call('/api/sync',{method:'POST'});await refreshJobs();notify('Đã kiểm tra lại trạng thái từ GitHub.','success');}catch(e){notify(e.message,'error');}});
-  $('#pasteBtn').addEventListener('click',async()=>{try{$('#urlInput').value=await navigator.clipboard.readText();}catch{notify('Trình duyệt không cho đọc bộ nhớ tạm. Mày hãy nhấn giữ ô liên kết và chọn Dán.');}});
+  $('#pasteBtn').addEventListener('click',async()=>{try{$('#urlInput').value=await navigator.clipboard.readText();}catch{notify('Trình duyệt không cho đọc bộ nhớ tạm. Bạn hãy nhấn giữ ô liên kết và chọn Dán.');}});
+  $('#keyBtn').addEventListener('click',keyLogin);
+  $('#keyInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();keyLogin();}});
   $('#logoutBtn').addEventListener('click',async()=>{try{await call('/api/logout',{method:'POST'});}catch{}settings.token='';sessionStorage.removeItem('m3_session');settings.jobs=[];setLogged(false);notify('Đã đăng xuất.','success');});
   try{
     const config=await fetch('./config.json',{cache:'no-store'}).then(r=>r.json());
@@ -115,6 +131,11 @@ async function boot() {
     if(address.protocol!=='https:'||address.hostname.includes('TEN_'))throw new Error('Sai địa chỉ cầu nối.');
     settings.api=address.origin;
     $('#systemInfo').textContent='Cầu nối: '+address.hostname;
+    try{
+      const health=await fetch(settings.api+'/health',{cache:'no-store'}).then(r=>r.json());
+      $('#loginBtn').classList.toggle('hidden',!health.oauth_ready);
+      if(!health.configured)notify('Cầu nối chưa được cấu hình đầy đủ. Hãy chạy lại quy trình cài đặt trên GitHub Actions.','error');
+    }catch{}
   }catch {notify('Chưa cấu hình trang web: mở tệp config.json và điền đúng địa chỉ Cloudflare Workers.','error');}
   $('#loginBtn').addEventListener('click',()=>{if(!settings.api){notify('Chưa có địa chỉ cầu nối để đăng nhập.','error');return;}window.location.assign(settings.api+'/auth/start');});
   $('#downloadForm').addEventListener('submit',async e=>{

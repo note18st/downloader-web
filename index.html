@@ -34,9 +34,14 @@
       <section class="notice hidden" id="notice" role="status"></section>
       <section class="login-card" id="loginCard">
         <div class="login-icon">🔐</div>
-        <h2>Chỉ mình mày điều khiển</h2>
+        <h2>Chỉ bạn điều khiển</h2>
         <p>Đăng nhập bằng tài khoản GitHub đã được cho phép. Chìa khóa bí mật không nằm trên trang web.</p>
-        <button class="primary-btn" id="loginBtn">Đăng nhập bằng GitHub <span>↗</span></button>
+        <button class="primary-btn hidden" id="loginBtn">Đăng nhập bằng GitHub <span>↗</span></button>
+        <details class="key-login" id="keyLogin">
+          <summary>Đăng nhập bằng mã truy cập cá nhân</summary>
+          <p class="fine">Dán mã truy cập GitHub của bạn (bắt đầu bằng <code>github_pat_…</code>). Mã chỉ được gửi một lần qua kết nối bảo mật và không lưu trên trang web.</p>
+          <div class="input-shell"><input id="keyInput" type="password" placeholder="github_pat_…" autocomplete="off" spellcheck="false" maxlength="400"><button class="muted-btn" id="keyBtn" type="button">Đăng nhập</button></div>
+        </details>
         <p class="fine">Đăng nhập xong, quay lại đây và dán liên kết là tải được.</p>
       </section>
 
@@ -58,7 +63,7 @@
       </section>
 
       <section id="jobsPage" class="page hidden"><div class="section-title"><h2>Danh sách tác vụ</h2><div class="small-actions"><button class="soft-btn" id="syncBtn">Đồng bộ</button><button class="soft-btn" id="refreshBtn">↻ Làm mới</button></div></div><p class="helper">Trang tự cập nhật khi đang mở. Nếu máy GitHub đã dừng nhưng trạng thái chưa đổi, nhấn Đồng bộ.</p><div id="allJobs" class="job-list"><div class="empty">Chưa có tác vụ.</div></div></section>
-      <section id="filesPage" class="page hidden"><div class="hero files-hero"><span class="hero-sticker" aria-hidden="true">▧</span><div><h2>Tệp nằm trên Drive của mày</h2><p>Riêng tư theo mặc định. Mỗi lượt tải có một thư mục mang mã riêng.</p></div></div><div class="section-title"><h2>Những tệp đã xử lý</h2><a class="text-btn" href="https://drive.google.com/drive/u/0/my-drive" target="_blank" rel="noopener noreferrer">Mở Google Drive ↗</a></div><div id="filesList" class="job-list"><div class="empty">Chưa có tệp nào được lưu.</div></div></section>
+      <section id="filesPage" class="page hidden"><div class="hero files-hero"><span class="hero-sticker" aria-hidden="true">▧</span><div><h2>Tệp nằm trên Google Drive của bạn</h2><p>Riêng tư theo mặc định. Mỗi lượt tải có một thư mục mang mã riêng.</p></div></div><div class="section-title"><h2>Những tệp đã xử lý</h2><a class="text-btn" href="https://drive.google.com/drive/u/0/my-drive" target="_blank" rel="noopener noreferrer">Mở Google Drive ↗</a></div><div id="filesList" class="job-list"><div class="empty">Chưa có tệp nào được lưu.</div></div></section>
       <section id="settingsPage" class="page hidden"><div class="panel settings-card"><h2>Cấu hình đơn giản</h2><div class="setting-line"><div><strong>Giao diện</strong><p>Màu sáng hoặc tối</p></div><button class="soft-btn" id="themeSetting">Đổi</button></div><div class="setting-line"><div><strong>Giới hạn mỗi lượt</strong><p>5 GiB · đổi trong GitHub Actions nếu máy đủ dung lượng</p></div><span class="plain-badge">An toàn</span></div><div class="setting-line"><div><strong>Nơi lưu</strong><p>Google Drive · thư mục trong biến DRIVE_DEST của GitHub</p></div><span class="plain-badge">Riêng tư</span></div><div class="setting-line"><div><strong>Phiên đăng nhập</strong><p>Tự hết hạn sau 24 giờ, khóa giữ trong phiên trình duyệt.</p></div><button class="soft-btn danger" id="logoutBtn">Đăng xuất</button></div></div><p class="helper" id="systemInfo"></p></section>
     </main>
   </div>
