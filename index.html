@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e6e5f4">
+  <meta name="description" content="Trình tải cá nhân — giao diện nhẹ, thuần tiếng Việt, điều khiển GitHub Actions.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://*.workers.dev; object-src 'none'; base-uri 'none'; form-action 'self'">
+  <title>Trình tải xuống · M3</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Điều hướng">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">↧</div><div><strong>Trình tải</strong><small>Gọn · Riêng tư · Dễ dùng</small></div></div>
+      <nav class="desktop-nav">
+        <button class="nav-item selected" data-page="home">⌂ <span>Trang chủ</span></button>
+        <button class="nav-item" data-page="jobs">▤ <span>Tác vụ</span></button>
+        <button class="nav-item" data-page="files">▧ <span>Tệp đã lưu</span></button>
+        <button class="nav-item" data-page="settings">⚙ <span>Cài đặt</span></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="tiny-dot"></div> GitHub Actions · Google Drive</div>
+    </aside>
+
+    <main class="main" id="main-content">
+      <header class="topbar">
+        <div><p class="eyebrow">Không cần Telegram hay Kaggle</p><h1 id="page-title">Tải xuống thật dễ ✨</h1></div>
+        <div class="top-actions"><button class="icon-btn" id="themeBtn" title="Đổi chế độ sáng tối" aria-label="Đổi chế độ sáng tối">◐</button><span class="status-indicator" id="authLabel">Chưa đăng nhập</span></div>
+      </header>
+
+      <section class="notice hidden" id="notice" role="status"></section>
+      <section class="login-card" id="loginCard">
+        <div class="login-icon">🔐</div>
+        <h2>Chỉ mình mày điều khiển</h2>
+        <p>Đăng nhập bằng tài khoản GitHub đã được cho phép. Chìa khóa bí mật không nằm trên trang web.</p>
+        <button class="primary-btn" id="loginBtn">Đăng nhập bằng GitHub <span>↗</span></button>
+        <p class="fine">Đăng nhập xong, quay lại đây và dán liên kết là tải được.</p>
+      </section>
+
+      <section id="homePage" class="page hidden">
+        <div class="hero"><span class="hero-sticker" aria-hidden="true">⇣</span><div><h2>Dán liên kết, để phần còn lại cho máy lo.</h2><p>YouTube · Facebook · TikTok · Ảnh · Tệp trực tiếp · M3U8/MPD</p></div></div>
+        <form id="downloadForm" class="panel download-panel">
+          <label for="urlInput" class="field-label">Liên kết cần tải</label>
+          <div class="input-shell"><span class="input-icon" aria-hidden="true">🔗</span><input id="urlInput" type="url" placeholder="https://..." inputmode="url" autocomplete="off" spellcheck="false" required maxlength="2048"><button type="button" id="pasteBtn" class="muted-btn">Dán</button></div>
+          <div class="two-columns">
+            <div class="field-group"><label for="modeInput" class="field-label">Kiểu tải</label><select id="modeInput"><option value="auto">Tự nhận diện</option><option value="video">Video trên các nền tảng</option><option value="gallery">Ảnh / album</option><option value="file">Tệp trực tiếp</option><option value="stream">M3U8 / MPD</option></select></div>
+            <div class="field-group"><label for="qualityInput" class="field-label">Chất lượng</label><select id="qualityInput"><option value="best">Tốt nhất có sẵn</option><option value="1080">Tối đa 1080p (video nền tảng)</option><option value="720">Tối đa 720p (video nền tảng)</option><option value="audio">Chỉ âm thanh</option></select></div>
+          </div>
+          <label class="check-row"><input id="subtitlesInput" type="checkbox" checked><span class="checkbox-custom"></span><span>Tải phụ đề nếu nguồn có</span></label>
+          <p class="helper">Với M3U8/MPD, chọn đúng chất lượng hiện có; nếu không có 1080p hoặc 720p thì nguồn có thể báo lỗi. Phụ đề và nhiều luồng âm thanh tùy nguồn cung cấp.</p>
+          <button class="primary-btn submit-btn" type="submit" id="submitBtn"><span>↓</span> Bắt đầu tải xuống</button>
+        </form>
+        <div class="section-title"><h2>Gần đây</h2><button class="text-btn" data-go="jobs">Xem tất cả →</button></div>
+        <div id="recentJobs" class="job-list"><div class="empty">Chưa có tác vụ nào. Dán liên kết đầu tiên nhé.</div></div>
+      </section>
+
+      <section id="jobsPage" class="page hidden"><div class="section-title"><h2>Danh sách tác vụ</h2><div class="small-actions"><button class="soft-btn" id="syncBtn">Đồng bộ</button><button class="soft-btn" id="refreshBtn">↻ Làm mới</button></div></div><p class="helper">Trang tự cập nhật khi đang mở. Nếu máy GitHub đã dừng nhưng trạng thái chưa đổi, nhấn Đồng bộ.</p><div id="allJobs" class="job-list"><div class="empty">Chưa có tác vụ.</div></div></section>
+      <section id="filesPage" class="page hidden"><div class="hero files-hero"><span class="hero-sticker" aria-hidden="true">▧</span><div><h2>Tệp nằm trên Drive của mày</h2><p>Riêng tư theo mặc định. Mỗi lượt tải có một thư mục mang mã riêng.</p></div></div><div class="section-title"><h2>Những tệp đã xử lý</h2><a class="text-btn" href="https://drive.google.com/drive/u/0/my-drive" target="_blank" rel="noopener noreferrer">Mở Google Drive ↗</a></div><div id="filesList" class="job-list"><div class="empty">Chưa có tệp nào được lưu.</div></div></section>
+      <section id="settingsPage" class="page hidden"><div class="panel settings-card"><h2>Cấu hình đơn giản</h2><div class="setting-line"><div><strong>Giao diện</strong><p>Màu sáng hoặc tối</p></div><button class="soft-btn" id="themeSetting">Đổi</button></div><div class="setting-line"><div><strong>Giới hạn mỗi lượt</strong><p>5 GiB · đổi trong GitHub Actions nếu máy đủ dung lượng</p></div><span class="plain-badge">An toàn</span></div><div class="setting-line"><div><strong>Nơi lưu</strong><p>Google Drive · thư mục trong biến DRIVE_DEST của GitHub</p></div><span class="plain-badge">Riêng tư</span></div><div class="setting-line"><div><strong>Phiên đăng nhập</strong><p>Tự hết hạn sau 24 giờ, khóa giữ trong phiên trình duyệt.</p></div><button class="soft-btn danger" id="logoutBtn">Đăng xuất</button></div></div><p class="helper" id="systemInfo"></p></section>
+    </main>
+  </div>
+  <nav class="bottom-nav" aria-label="Điều hướng điện thoại"><button class="bottom-item selected" data-page="home"><span>⌂</span><small>Trang chủ</small></button><button class="bottom-item" data-page="jobs"><span>▤</span><small>Tác vụ</small></button><button class="bottom-item" data-page="files"><span>▧</span><small>Tệp</small></button><button class="bottom-item" data-page="settings"><span>⚙</span><small>Cài đặt</small></button></nav>
+  <template id="jobTemplate"><article class="job-card"><div class="job-head"><div class="job-avatar" aria-hidden="true">↓</div><div class="job-name"><strong class="job-title"></strong><small class="job-date"></small></div><span class="state-chip"></span></div><p class="job-message"></p><div class="progress-track"><span class="progress-fill"></span></div><div class="job-footer"><span class="job-percent"></span><div class="job-actions"><button class="small-btn cancel-btn" type="button">Hủy</button></div></div><div class="job-files"></div></article></template>
+</body>
+</html>
