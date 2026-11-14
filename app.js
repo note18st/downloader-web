@@ -78,6 +78,25 @@ function buildJob(job, showFiles=false) {
       catch(e){btn.disabled=false;notify(e.message,'error');}
     });
   }
+  // Nút mở trực tiếp kết quả trên Google Drive — chỉ hiện khi máy tải đã tạo
+  // liên kết hợp lệ (tệp nếu tác vụ có 1 tệp, ngược lại là thư mục chứa kết quả).
+  const driveLink = typeof job.drive_link==='string' && job.drive_link.startsWith('https://drive.google.com/') ? job.drive_link : '';
+  if (job.status==='done' && driveLink) {
+    const open=document.createElement('a');
+    open.className='small-btn drive-open';
+    open.href=driveLink; open.target='_blank'; open.rel='noopener noreferrer';
+    open.textContent='Mở trên Google Drive';
+    const copy=document.createElement('button');
+    copy.type='button'; copy.className='small-btn drive-copy';
+    copy.textContent='Sao chép liên kết';
+    copy.addEventListener('click',async()=>{
+      copy.disabled=true;
+      try{await navigator.clipboard.writeText(driveLink);notify('Đã sao chép liên kết Google Drive.','success');}
+      catch{notify('Trình duyệt không cho tự sao chép. Hãy bấm Mở trên Google Drive rồi sao chép từ thanh địa chỉ.','error');}
+      finally{copy.disabled=false;}
+    });
+    actions.append(open,copy);
+  }
   if (showFiles && job.status==='done' && Array.isArray(job.files)) {
     const box=el.querySelector('.job-files');
     for(const f of job.files.slice(0,30)) {
