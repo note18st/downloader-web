@@ -1,13 +1,15 @@
-# Hướng dẫn sử dụng — Trình tải xuống M3
+# Hướng dẫn sử dụng — Trình tải M3
 
-Trang web: **https://note18st.github.io/downloader-web/**
+Trang web chính: **https://downloader-m3-gateway.phamhoainam.workers.dev/**
 
-Phiên bản: **V1.0.0** (14/11/2026)
+Trang dự phòng: https://note18st.github.io/downloader-web/
+
+Phiên bản: **V1.1.0** (15/11/2026)
 
 ## Mở đầu 30 giây
 
 1. Mở trang web, đăng nhập bằng **mã truy cập cá nhân GitHub** (xem "Cách đăng nhập" bên dưới).
-2. Dán liên kết cần tải vào ô đầu trang.
+2. Dán liên kết cần tải vào ô đầu trang (có nút **Dán** để dán nhanh).
 3. Chọn kiểu tải (để **Tự nhận diện** nếu không chắc) và chất lượng.
 4. Bấm **Bắt đầu tải xuống**, vào mục **Tác vụ** xem tiến độ.
 5. Tải xong, bấm **Mở trên Google Drive** trên thẻ tác vụ để mở thẳng kết quả.
@@ -28,8 +30,8 @@ Phiên bản: **V1.0.0** (14/11/2026)
 
 | Bạn có liên kết gì | Chọn kiểu tải | Ví dụ |
 | --- | --- | --- |
-| Video trên mạng xã hội / nền tảng | Tự nhận diện hoặc Video trên các nền tảng | YouTube, Facebook, TikTok, X |
-| Trang ảnh / album ảnh | Ảnh / album | Danbooru, ArtStation |
+| Video trên mạng xã hội / nền tảng | Tự nhận diện hoặc Video nền tảng | YouTube, Facebook, TikTok, X |
+| Trang ảnh / album ảnh | Ảnh / bộ sưu tập | Danbooru, ArtStation |
 | Liên kết thẳng tới một tệp | Tự nhận diện hoặc Tệp trực tiếp | tệp .mp4, .zip, .pdf |
 | Luồng phát M3U8 / MPD (thường lấy từ trang phát phim) | Tự nhận diện hoặc M3U8 / MPD | liên kết `.m3u8`, `.mpd` |
 
@@ -38,7 +40,15 @@ Phiên bản: **V1.0.0** (14/11/2026)
 - **Tốt nhất có sẵn**: lấy bản cao nhất nguồn có.
 - **Tối đa 1080p / 720p**: không lấy bản cao hơn mức chọn (tiết kiệm dung lượng).
 - **Chỉ âm thanh**: bỏ hình, chỉ lấy tiếng (MP3/M4A tốt nhất có sẵn).
-- Ô **Tải phụ đề nếu nguồn có**: bật để lấy phụ đề (áp dụng cho video nền tảng và M3U8).
+- Ô **Tải phụ đề nếu nguồn có** nằm trong mục **Tùy chọn nâng cao** trên trang chủ.
+- Chất lượng chọn lần trước được ghi nhớ; đổi mặc định trong mục **Cài đặt**.
+
+## Bốn khu vực chính
+
+- **Trang chủ**: dán liên kết, chọn kiểu tải và chất lượng, bấm bắt đầu.
+- **Tác vụ**: trạng thái, tiến trình, hủy và thử lại cho từng lượt tải.
+- **Tệp đã lưu**: danh sách kết quả với nút **Mở trên Google Drive** và **Sao chép liên kết**.
+- **Cài đặt**: giao diện sáng/tối/tự động, chất lượng mặc định, thông tin hệ thống.
 
 ## Sau khi tải xong
 
@@ -53,8 +63,8 @@ Phiên bản: **V1.0.0** (14/11/2026)
 ## Hủy và thử lại
 
 - Nhấn **Hủy** trên thẻ tác vụ đang chạy — máy tải tự dừng trong vài giây.
-- Tác vụ lỗi hiện thông báo tiếng Việt nêu rõ lý do. Gửi lại liên kết (nút Bắt đầu tải xuống)
-  là hệ thống thử lại từ đầu.
+- Tác vụ lỗi hoặc đã hủy có nút **Thử lại** — gửi lại đúng liên kết cũ bằng một chạm.
+- Tác vụ lỗi hiện thông báo tiếng Việt nêu rõ lý do.
 - Lỗi "từ chối theo vị trí mạng" nghĩa là nguồn chỉ nhận kết nối từ một số quốc gia —
   máy tải của hệ thống đặt ở nước ngoài nên không tải được nguồn đó (đã kiểm chứng,
   không phải lỗi hệ thống).
@@ -64,6 +74,16 @@ Phiên bản: **V1.0.0** (14/11/2026)
 - Tối đa **5 GiB** mỗi lượt tải, chạy tối đa **120 phút**.
 - Tối đa 10 tác vụ đang chạy, gửi tối đa 3 lượt mỗi phút.
 - Trang cần đăng nhập (Instagram, Pixiv…) chưa hỗ trợ do chưa cấu hình cookies.
+- Nguồn chặn theo vùng địa lý (như một số máy chủ phát phim) không tải được —
+  xem mục "Hủy và thử lại".
+
+## Giao diện và tự động cập nhật
+
+- Giao diện tự chạy theo **sáng / tối** của hệ thống; đổi trong **Cài đặt** hoặc nút
+  hình mặt trăng trên thanh đầu trang.
+- Trang được thiết kế cho điện thoại: phóng to hai ngón tay như bình thường.
+- Khi mã nguồn giao diện (kho `downloader-web`) thay đổi, hệ thống tự triển khai
+  bản mới lên Cloudflare trong khoảng 10 phút, không cần thao tác tay.
 
 ## Bảo mật
 
