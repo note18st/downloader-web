@@ -83,7 +83,7 @@ Phiên bản: **V1.1.0** (15/11/2026)
   hình mặt trăng trên thanh đầu trang.
 - Trang được thiết kế cho điện thoại: phóng to hai ngón tay như bình thường.
 - Khi mã nguồn giao diện (kho `downloader-web`) thay đổi, hệ thống tự triển khai
-  bản mới lên Cloudflare trong khoảng 10 phút, không cần thao tác tay.
+  bản mới lên Cloudflare trong khoảng 15 phút, không cần thao tác tay.
 
 ## Bảo mật
 
