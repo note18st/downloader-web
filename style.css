@@ -1,6 +1,6 @@
 /* ============================================================
    Trình tải M3 — Giao diện Material 3 Expressive (V1.1)
-   Dựng lần cuối: 15/11/2026 — tự động triển khai từ GitHub
+   Dựng lần cuối: 15/11/2026 — tự động triển khai từ GitHub Actions
    Mobile-first · Sáng / Tối / Tự động · Vùng an toàn · Không cuộn ngang
    ============================================================ */
 
@@ -416,8 +416,7 @@ svg { flex: none; }
   transition: left var(--dur-med) var(--ease-emphasized), width var(--dur-med) var(--ease-emphasized), height var(--dur-med) var(--ease-emphasized), background var(--dur-med) var(--ease-standard);
 }
 .switch input:checked + .switch-track { background: var(--primary); box-shadow: inset 0 0 0 2px var(--primary); }
-.switch input:checked + .switch-track .switch-thumb { left: 6px; width: 24px; height: 24px; background: var(--on-primary); }
-.switch input:checked + .switch-track .switch-thumb { left: calc(100% - 30px); }
+.switch input:checked + .switch-track .switch-thumb { left: calc(100% - 30px); width: 24px; height: 24px; background: var(--on-primary); }
 .switch input:focus-visible + .switch-track { outline: 2px solid var(--primary); outline-offset: 3px; }
 
 /* ---- Thu gọn nâng cao ---- */
