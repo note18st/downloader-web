@@ -1,6 +1,6 @@
 /* ============================================================
    Trình tải M3 — Giao diện Material 3 Expressive (V1.1)
-   Dựng lần cuối: 15/11/2026 — tự động triển khai từ GitHub Actions
+   Dựng lần cuối: 15/11/2026 (bản 2) — tự động từ GitHub Actions
    Mobile-first · Sáng / Tối / Tự động · Vùng an toàn · Không cuộn ngang
    ============================================================ */
 
@@ -158,9 +158,7 @@ svg { flex: none; }
   position: sticky;
   top: 0;
   z-index: 40;
-  background: color-mix(in srgb, var(--surface-container) 88%, transparent);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  background: var(--surface-container);
   border-bottom: 1px solid var(--outline-variant);
   padding-top: env(safe-area-inset-top);
 }
@@ -805,9 +803,7 @@ svg { flex: none; }
   z-index: 40;
   display: flex;
   justify-content: space-around;
-  background: color-mix(in srgb, var(--surface-container) 94%, transparent);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
+  background: var(--surface-container);
   border-top: 1px solid var(--outline-variant);
   padding: 8px max(8px, env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-right));
 }
